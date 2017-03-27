@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#USAGE: ./generateMIDI <.mp3> <mode>
+
+#$1 = mp3file     $2 = N
+count=1
+
+if [ $2 -eq 1 ]
+then
+    python ./aubio.py $1 -f
+else
+    a=( Pad_Resources/* )
+    randf=()
+    # name of midi
+    808midi = "808.mid"
+    # take user sample and make midi file
+    python ./aubio $1 config.txt 808.mid
+
+    # name of midi
+    808midi = "Kck.mid"
+    # take user sample and make midi file
+    python ./aubio.py $1 config.txt Kck.mid
+
+    # name of midi
+    808midi = "Hs.mid"
+    # take user sample and make midi file
+    python ./aubio.py $1 config.txt Hs.mid
+
+    # name of midi
+    808midi = "Ot.mid"
+    # take user sample and make midi file
+    python ./aubio.py $1 config.txt Ot.mid
+
+    done
+fi
