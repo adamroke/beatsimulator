@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo =======================================================
+
+# RANDOMLY SELECT A RESOURCE FOR THE INSTRUMENT
+mv 808.vst/Contents/Resources/*.mse Resources/
+echo "Instrument resource returned... done."
+echo =======================================================

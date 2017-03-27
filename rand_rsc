@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# RANDOMLY SELECT A RESOURCE FOR THE INSTRUMENT
+a=( Resources/* )
+randf=()
+for ((i=0;i<50 && ${#a[@]};++i)); do
+    ((j=RANDOM%${#a[@]}))
+    randf+=( "${a[j]}" )
+    a=( "${a[@]:0:j}" "${a[@]:j+1}" )
+done
+file="INSTRUMENT SELECT = ("
+file+="$(echo $a | cut -f2 -d/)"
+file+=")"
+echo $file
+
+
+# MOVE INSTRUMENT RESOURCE TO .vst Contents/ dir
+mv "$a" 808.vst/Contents/Resources/
+echo =======================================================
