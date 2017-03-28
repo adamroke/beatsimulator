@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#USAGE: ./808compile <.mp3 sample>
+
+#$1 = midi_filename     $2 = N
+count=1
+
+for n in $(seq $2); do
+    if [ "$1" -eq "808.mid" ]
+    then
+        # RANDOMLY PICK KIT/THEME FOR 808
+        ./rand_rsc
+        # RENDER MIDI FILE TO WAV WITH MRSWATSON
+        outfile="808.wav"
+        ./mrswatson -p 808 -m $1 -o $outfile --quiet
+        # RETRIEVE THE RANDOM RESOURCE AND REPLACE IT
+        ./retr_rsc
+    else
+        # RENDER MIDI FILE TO WAV WITH MRSWATSON
+        outfile=$1
+        outfile+=".wav"
+        ./mrswatson -p DRUMPAD -m $1 -o $outfile --quiet
+    fi
+done
