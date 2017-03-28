@@ -2,34 +2,43 @@
 
 #USAGE: ./generateMIDI <.mp3> <mode>
 
-#$1 = mp3file     $2 = N
+#$1 = mp3file     $2 = mode
 count=1
 
 if [ $2 -eq 1 ]
 then
-    python ./aubio.py $1 -f
+    #it converts the existing beat to midi notes and attempts to change
+    #the requisite config file
+    python ./aubio.py $1
+
 else
     a=( Pad_Resources/* )
     randf=()
-    # name of midi
-    808midi = "808.mid"
-    # take user sample and make midi file
-    python ./aubio $1 config.txt 808.mid
 
-    # name of midi
-    808midi = "Kck.mid"
-    # take user sample and make midi file
-    python ./aubio.py $1 config.txt Kck.mid
+    #gets the sample BPM
+    python ./python/demo/demo_bpm_extract.py $1 >> bpm_temp.txt
+    bpm = $( cat bpm_temp.txt )
+    rm bpm_temp.txt
 
-    # name of midi
-    808midi = "Hs.mid"
-    # take user sample and make midi file
-    python ./aubio.py $1 config.txt Hs.mid
+    # take user sample and make midi file for bassline
+    args = $( cat Config/808_config.txt )
+    python ./PhraseGenerator.py $bpm $args
+    java MidiConverter 808_.mid 808.mid
 
-    # name of midi
-    808midi = "Ot.mid"
-    # take user sample and make midi file
-    python ./aubio.py $1 config.txt Ot.mid
+    # take user sample and make midi file for kick pattern
+    args = $( cat Config/kick_config.txt )
+    python ./PhraseGenerator.py $bpm $args
+    java MidiConverter Kck_.mid Kck.mid
+
+    # take user sample and make midi file for high hats
+    args = $( cat Config/Hs_config.txt )
+    python ./PhraseGenerator.py $bpm $args
+    java MidiConverter Hs_.mid Hs.mid
+
+    # take user sample and make midi file for claps
+    args = $( cat Config/Ot_config.txt )
+    python ./PhraseGenerator.py $bpm $args
+    java MidiConverter Ot_.mid Ot.mid
 
     done
 fi

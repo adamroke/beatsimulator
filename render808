@@ -6,20 +6,19 @@
 count=1
 
 for n in $(seq $2); do
-    echo "# $count"
-    # RANDOMLY PICK DRUMKIT FOR 808
-    ./rand_rsc
-
-    # RENDER MIDI FILE TO WAV WITH MRSWATSON
-    outfile="out_"
-    outfile+=$( echo $count)
-    outfile+=".wav"
-
-    ./mrswatson -p 808 -m $1 -o $outfile --quiet
-
-    # RETRIEVE THE RANDOM RESOURCE AND REPLACE IT
-    ./retr_rsc
-
-    # ITERATE THE COUNTER FOR OUTPUT FILE
-    count=$((count+1))
+    if [ "$1" -eq "808.mid" ]
+    then
+        # RANDOMLY PICK KIT/THEME FOR 808
+        ./rand_rsc
+        # RENDER MIDI FILE TO WAV WITH MRSWATSON
+        outfile="808.wav"
+        ./mrswatson -p 808 -m $1 -o $outfile --quiet
+        # RETRIEVE THE RANDOM RESOURCE AND REPLACE IT
+        ./retr_rsc
+    else
+        # RENDER MIDI FILE TO WAV WITH MRSWATSON
+        outfile=$1
+        outfile+=".wav"
+        ./mrswatson -p DRUMPAD -m $1 -o $outfile --quiet
+    fi
 done
