@@ -1,4 +1,4 @@
-To run the simulation, use the following three commands in order. (Note that the 808.vst and DRUMPAD.vst files are 64-bit varieties and are MACOSX VST’s. Please contact me at aroke@uci.edu for Windows version)
+To run the simulation, use the following three commands in order. (Note that the 808.vst and DRUMPAD.vst files are 64-bit macOS VST binaries. Please reach out if you want to get the Windows version)
 
 ./generateMIDI <.mp3 sample> 0
 
@@ -9,9 +9,4 @@ To run the simulation, use the following three commands in order. (Note that the
 
 ./808compile <.mp3 sample>
 
-LOCATION OF GROWING SIMULATED RESULTS [updated every day]:
-https://www.dropbox.com/sh/3zq2ovdawfnuc7h/AADB-c-c097gJ6oUjM_jETz9a?dl=0
-
-5 resulting beats used for testing results (average of 34.168 seconds per beat) found in Sample Output/ folder on this repo. 
-
-CONTACT aroke@uci.edu FOR USAGE INQUIRIES. 
+5 beats (and the 5 samples used as the input) generated as output test results (average of 34.168 seconds per beat) found in Sample Output/ folder on this repo. 
